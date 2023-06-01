@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-type xmlns="urn:enonic:xp:model:1.0">
-  <display-name>Person</display-name>
+  <display-name>Celebrities</display-name>
   <description>Historical or living human</description>
   <super-type>base:structured</super-type>
   <form>
     <input type="ImageSelector" name="photos">
-      <label>Photos</label>
+      <label>Photos (zero or more)</label>
       <occurrences minimum="0" maximum="0"/>
     </input>
     <input type="TextArea" name="bio">
-      <label>Bio</label>
-       <occurrences minimum="1" maximum="1"/>
+      <label>Biography (please keep it short)</label>
+      <occurrences minimum="1" maximum="1"/>
     </input>
     <input type="Date" name="dateofbirth">
       <label>Birth Date</label>
-       <occurrences minimum="0" maximum="1"/>
+      <occurrences minimum="0" maximum="1"/>
     </input>
   </form>
 </content-type>

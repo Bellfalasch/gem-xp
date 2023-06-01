@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-type xmlns="urn:enonic:xp:model:1.0">
-  <display-name>Person</display-name>
-  <description>Historical or living human</description>
+  <display-name>Events</display-name>
+  <description>Where magic happens at Gjensidige</description>
   <super-type>base:structured</super-type>
   <form>
-    <input type="ImageSelector" name="photos">
-      <label>Photos</label>
-      <occurrences minimum="0" maximum="0"/>
+    <input type="ImageSelector" name="header">
+      <label>Header</label>
+      <occurrences minimum="0" maximum="1"/>
     </input>
-    <input type="TextArea" name="bio">
-      <label>Bio</label>
-       <occurrences minimum="1" maximum="1"/>
+    <input type="Date" name="startDate">
+      <label>Start date</label>
+      <occurrences minimum="1" maximum="1"/>
     </input>
-    <input type="Date" name="dateofbirth">
-      <label>Birth Date</label>
-       <occurrences minimum="0" maximum="1"/>
+    <input type="Date" name="endDate">
+      <label>End date</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input type="TextArea" name="description">
+      <label>Description</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input type="RadioButton" name="theme">
+      <label>Select a theme</label>
+      <occurrences minimum="1" maximum="1"/>
+      <config>
+        <option value="default">Default</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </config>
+      <default>default</default>
     </input>
   </form>
 </content-type>
