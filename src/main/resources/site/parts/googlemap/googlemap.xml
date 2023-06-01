@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Google Maps Part</display-name>
+    <description>A part that displays a Google Map</description>
+    <form>
+        <input name="apiKey" type="TextLine">
+            <label>Google Maps API Key</label>
+            <help-text>Enter your Google Maps API key here</help-text>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="latitude" type="TextLine">
+            <label>Latitude</label>
+            <help-text>The latitude of the location to display on the map</help-text>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="longitude" type="TextLine">
+            <label>Longitude</label>
+            <help-text>The longitude of the location to display on the map</help-text>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="zoom" type="ComboBox">
+            <label>Zoom level</label>
+            <occurrences minimum="0" maximum="1"/>
+        </input>
+    </form>
+</part>
