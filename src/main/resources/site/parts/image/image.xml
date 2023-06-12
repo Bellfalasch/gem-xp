@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+  <display-name>Image</display-name>
+  <description>Insert image</description>
+  <form>
+    <input type="ImageSelector" name="header">
+      <label>Image</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+  </form>
+</part>
