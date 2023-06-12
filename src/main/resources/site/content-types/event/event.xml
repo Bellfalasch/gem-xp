@@ -4,17 +4,35 @@
   <description>Where magic happens at Gjensidige</description>
   <super-type>base:structured</super-type>
   <form>
+    <input type="TextArea" name="description">
+      <label>Description</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input type="TextArea" name="location">
+      <label>Location</label>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
     <input type="Date" name="startDate">
       <label>Start date</label>
       <occurrences minimum="1" maximum="1"/>
+    </input>
+    <input type="Time" name="startTime" >
+      <label>DateTime (current time as default value)</label>
+      <default>now</default>
     </input>
     <input type="Date" name="endDate">
       <label>End date</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
-    <input type="TextArea" name="description">
-      <label>Description</label>
-      <occurrences minimum="1" maximum="1"/>
+    <input type="Time" name="endTime" >
+      <label>DateTime (current time as default value)</label>
+      <default>now</default>
+    </input>
+    <input type="CheckBox" name="externalUsers">
+      <label>Open for external users</label>
+    </input>
+    <input type="CheckBox" name="allergy">
+      <label>Allergy (participant checked for allergy?)</label>
     </input>
     <input type="RadioButton" name="theme">
       <label>Select a theme</label>
