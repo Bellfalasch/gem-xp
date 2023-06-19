@@ -3,7 +3,7 @@
   <form/>
   <mappings>
     <mapping controller="/controllers/preview.js" order="50">
-      <match>type:'.*:person|.*:movie|.*:folder'</match>
+      <match>type:'.*:event|.*:folder'</match>
     </mapping>
   </mappings>
 </site>
