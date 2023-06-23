@@ -28,6 +28,9 @@
       <label>DateTime (current time as default value)</label>
       <default>now</default>
     </input>
+    <input type="CheckBox" name="showCountdown">
+      <label>Check the box for show the countdown</label>
+    </input>
     <input type="CheckBox" name="externalUsers">
       <label>Open for external users</label>
     </input>
