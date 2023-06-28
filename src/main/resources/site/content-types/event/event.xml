@@ -41,8 +41,10 @@
       <label>Select a theme</label>
       <occurrences minimum="1" maximum="1"/>
       <config>
-        <option value="default">Default</option>
-        <option value="light">Light</option>
+        <option value="Christmas">Default</option>
+        <option value="New year">Light</option>
+        <option value="Summer">Light</option>
+        <option value="Pride">Light</option>
         <option value="dark">Dark</option>
       </config>
       <default>default</default>
