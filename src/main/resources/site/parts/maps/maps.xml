@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Maps</display-name>
+    <description>A part that display Map</description>
+    <form>
+        <input name="latitude" type="TextLine">
+            <label>Latitude</label>
+            <help-text>The latitude of the location to display on the map</help-text>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="longitude" type="TextLine">
+            <label>Longitude</label>
+            <help-text>The longitude of the location to display on the map</help-text>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input name="zoom" type="ComboBox">
+            <label>Choose zoom level</label>
+            <occurrences minimum="0" maximum="1"/>
+              <config>
+                <option value="0">Zoom level 0</option>
+                <option value="1">Zoom level 1</option> 
+                <option value="2">Zoom level 2</option>  
+                <option value="3">Zoom level 3</option>
+                <option value="4">Zoom level 4</option>
+                <option value="5">Zoom level 5</option>
+                <option value="6">Zoom level 6</option>
+                <option value="7">Zoom level 7</option>
+                <option value="8">Zoom level 8</option>
+                <option value="9">Zoom level 9</option>
+                <option value="10">Zoom level 10</option>
+                <option value="11">Zoom level 11</option>
+                <option value="12">Zoom level 12</option>
+                <option value="13">Zoom level 13</option>
+                <option value="14">Zoom level 14</option>
+                <option value="15">Zoom level 15</option>
+                <option value="16">Zoom level 16</option>
+                <option value="17">Zoom level 17</option>
+                <option value="18">Zoom level 18</option>
+                <option value="19">Zoom level 19</option>
+                <option value="20">Zoom level 20</option>
+            </config>
+            <default>18</default>  
+        </input>
+    </form>
+</part>
