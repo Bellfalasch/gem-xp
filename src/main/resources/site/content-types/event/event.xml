@@ -13,11 +13,13 @@
       <occurrences minimum="1" maximum="1"/>
     </input>
     <input name="startDateTime" type="DateTime">
-      <label>DateTime (current time as default value)</label>
+      <label>Start date and time</label>
+      <help-text>(current time as default value)</help-text>
       <default>now</default>
     </input>
     <input name="endDateTime" type="DateTime">
-      <label>DateTime (current time as default value)</label>
+      <label>End date and time</label>
+      <help-text>(current time as default value)</help-text>
       <default>now</default>
     </input>
     <input type="CheckBox" name="showCountdown">
