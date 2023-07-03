@@ -12,20 +12,14 @@
       <label>Location</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
-    <input type="Date" name="startDate">
-      <label>Start date</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
-    <input type="Time" name="startTime" >
-      <label>DateTime (current time as default value)</label>
+    <input name="startDateTime" type="DateTime">
+      <label>Start date and time</label>
+      <help-text>(current time as default value)</help-text>
       <default>now</default>
     </input>
-    <input type="Date" name="endDate">
-      <label>End date</label>
-      <occurrences minimum="1" maximum="1"/>
-    </input>
-    <input type="Time" name="endTime" >
-      <label>DateTime (current time as default value)</label>
+    <input name="endDateTime" type="DateTime">
+      <label>End date and time</label>
+      <help-text>(current time as default value)</help-text>
       <default>now</default>
     </input>
     <input type="CheckBox" name="showCountdown">
