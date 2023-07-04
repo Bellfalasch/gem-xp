@@ -13,12 +13,22 @@
       <occurrences minimum="1" maximum="1"/>
     </input>
     <input name="startDateTime" type="DateTime">
-      <label>Start date and time</label>
+      <label>Event starts date and time</label>
       <help-text>(current time as default value)</help-text>
       <default>now</default>
     </input>
     <input name="endDateTime" type="DateTime">
-      <label>End date and time</label>
+      <label>Event end date and time</label>
+      <help-text>(current time as default value)</help-text>
+      <default>now</default>
+    </input>
+    <input name="openForRegistration" type="DateTime">
+      <label>Registration open from date and time</label>
+      <help-text>(current time as default value)</help-text>
+      <default>now</default>
+    </input>
+    <input name="closedForRegistration" type="DateTime">
+      <label>Registration closed from date and time</label>
       <help-text>(current time as default value)</help-text>
       <default>now</default>
     </input>
