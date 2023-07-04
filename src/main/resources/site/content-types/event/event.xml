@@ -22,6 +22,10 @@
       <help-text>(current time as default value)</help-text>
       <default>now</default>
     </input>
+    <input name="attendees" type="Long">
+      <label>Participant limit</label>
+      <help-text>Skriv inn maks grense på antall deltakere til event</help-text>
+    </input>
     <input type="CheckBox" name="showCountdown">
       <label>Check the box for show the countdown</label>
     </input>
