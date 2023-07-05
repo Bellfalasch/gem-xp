@@ -2,7 +2,5 @@
 <part xmlns="urn:enonic:xp:model:1.0">
   <display-name>RSVP</display-name>
   <description>RSVP og Allergy</description>
-  <form>
-
-  </form>
+  <form />
 </part>

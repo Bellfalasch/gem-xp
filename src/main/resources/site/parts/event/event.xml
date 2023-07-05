@@ -2,6 +2,5 @@
 <part xmlns="urn:enonic:xp:model:1.0">
   <display-name>Event header</display-name>
   <description>Display information about one event</description>
-  <form>
-  </form>
+  <form />
 </part>
