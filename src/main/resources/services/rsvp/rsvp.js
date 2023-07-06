@@ -11,28 +11,30 @@ const gemRepo = nodeLib.connect({
 
 exports.get = function (req) {
   const eventId = req.params.eventId || null;
-  const uniqueName = 'nerd';
-  const uniquePath = `/${eventId}/${eventId}`;
+  const uniqueName = 'nerd2';
+  const uniquePath = `/${uniqueName}`;
 
   // Checking if a node exists by path
-  const dataExists = repo.exists(uniquePath);
+  const dataExists = gemRepo.exists(uniquePath);
   if (dataExists) {
       log.info('Node exists - skip creation');
   } else {
-      log.info('Node does not exist - create it!');
+    log.info('Node does not exist - create it!');
+    
+    var result = gemRepo.create({
+      _name: uniqueName,
+      displayName: 'Carpenter and IT expert',
+      likes: 'Plywood',
+      numberOfUselessGadgets: 123,
+      eventId: eventId
+    });
+    // TODO: store RSVP using the data you need, attach event ID to know which event.
+    // Name of person, timestamp, e-mail, attending/not attending, allergy info ... more? eventId
+    log.info(JSON.stringify(result,null,4));
+
+    return { body: `RSVP registered! ${result._id}` }
   }
 
-  var result = gemRepo.create({
-    _name: uniqueName,
-    _path: uniquePath,
-    displayName: 'Carpenter and IT expert',
-    likes: 'Plywood',
-    numberOfUselessGadgets: 123,
-    eventId: eventId
-  });
-  // TODO: store RSVP using the data you need, attach event ID to know which event.
-  // Name of person, timestamp, e-mail, attending/not attending, allergy info ... more? eventId
-
-  log.info(JSON.stringify(result,null,4));
+  return { body: "Sorry Mac, node already exists" }
 
 }
