@@ -11,8 +11,20 @@ const gemRepo = nodeLib.connect({
 
 exports.get = function (req) {
   const eventId = req.params.eventId || null;
+  const uniqueName = 'nerd';
+  const uniquePath = `/${eventId}/${eventId}`;
+
+  // Checking if a node exists by path
+  const dataExists = repo.exists(uniquePath);
+  if (dataExists) {
+      log.info('Node exists - skip creation');
+  } else {
+      log.info('Node does not exist - create it!');
+  }
+
   var result = gemRepo.create({
-    _name: 'nerd',
+    _name: uniqueName,
+    _path: uniquePath,
     displayName: 'Carpenter and IT expert',
     likes: 'Plywood',
     numberOfUselessGadgets: 123,
