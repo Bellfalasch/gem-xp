@@ -10,27 +10,47 @@ const gemRepo = nodeLib.connect({
 });
 
 exports.post = function (req) {
-  const eventId = req.params.eventId || null;
-  const uniqueName = 'nerd2';
-  const uniquePath = `/${uniqueName}`;
+  const body = req.body;
+  if (!body) {
+    return {
+      body: {
+        message: `Invalid body payload sent`,
+        newId: undefined,
+        success: false
+      },
+      contentType: "application/json"
+    };
+  }
+  const bodyObject = JSON.parse(body);
+  const eventId = bodyObject.eventId;
+  const user = {
+    name: bodyObject.name,
+    email: bodyObject.email,
+    rsvp: bodyObject.rsvp,
+    allergy: bodyObject.allergy,
+  };
 
-  // Checking if a node exists by path
-  const dataExists = gemRepo.exists(uniquePath);
-  if (dataExists) {
-      log.info('Node exists - skip creation');
-  } else {
-    log.info('Node does not exist - create it!');
-    
+  // Checking if event exists
+  const eventExists = gemRepo.exists(`/${eventId}`);
+  if (!eventExists) {
     var result = gemRepo.create({
-      _name: uniqueName,
-      displayName: 'Carpenter and IT expert',
-      likes: 'Plywood',
-      numberOfUselessGadgets: 123,
-      eventId: eventId
+      _name: eventId,
+      displayName: `Event ID: ${eventId}`
     });
-    // TODO: store RSVP using the data you need, attach event ID to know which event.
-    // Name of person, timestamp, e-mail, attending/not attending, allergy info ... more? eventId
-    log.info(JSON.stringify(result,null,4));
+  }
+
+  // Check if user entry exists under this event (based on e-mail)
+  const userExists = gemRepo.exists(`/${eventId}/${user.email}`);
+  if (!userExists) {
+    var result = gemRepo.create({
+      _name: user.email,
+      _parentPath: eventId,
+      name: user.name,
+      email: user.email,
+      rsvp: user.rsvp,
+      allergy: user.allergy,
+      eventId: eventId // redundant data, but when makign sure data ends up in the right event, it might be nice to store this double to make debugging easier
+    });
 
     return {
       body: {
@@ -40,14 +60,59 @@ exports.post = function (req) {
       },
       contentType: "application/json"
     }
+  } else {
+    return {
+      body: {
+        message: `Sorry Mac, your e-mail is already registered!`,
+        newId: undefined,
+        success: false
+      },
+      contentType: "application/json"
+    }
+  }
+}
+
+exports.get = function (req) {
+  const eventId = req.params.eventId || null;
+  if (!eventId) {
+    return {
+      body: {
+        message: `Please send a eventId using GET to this endpoint`,
+        success: false
+      },
+      contentType: "application/json"
+    }
   }
 
-  return {
-    body: {
-      message: `Sorry Mac, node already exists`,
-      newId: undefined,
-      success: false
-    },
-    contentType: "application/json"
+  const eventExists = gemRepo.exists(`/${eventId}`);
+  if (!eventExists) {
+    return {
+      body: {
+        message: `Event not found, assuming no one are attending yet.`,
+        participants: 0
+      },
+      contentType: "application/json"
+    }
+  } else {
+    const result = gemRepo.query({
+        query: `eventId = '${eventId}'`
+    });
+    if (result) {
+      return {
+        body: {
+          message: `Found event and participants on it.`,
+          participants: result.total
+        },
+        contentType: "application/json"
+      }
+    } else {
+      return {
+        body: {
+          message: `No RSVPs for this event found, assuming no one are attending yet.`,
+          participants: 0
+        },
+        contentType: "application/json"
+      }
+    }
   }
 }
