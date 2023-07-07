@@ -9,7 +9,7 @@ const gemRepo = nodeLib.connect({
   branch: "master"
 });
 
-exports.get = function (req) {
+exports.post = function (req) {
   const eventId = req.params.eventId || null;
   const uniqueName = 'nerd2';
   const uniquePath = `/${uniqueName}`;
@@ -32,9 +32,22 @@ exports.get = function (req) {
     // Name of person, timestamp, e-mail, attending/not attending, allergy info ... more? eventId
     log.info(JSON.stringify(result,null,4));
 
-    return { body: `RSVP registered! ${result._id}` }
+    return {
+      body: {
+        message: `RSVP registered! ${result._id}`,
+        newId: result._id,
+        success: true
+      },
+      contentType: "application/json"
+    }
   }
 
-  return { body: "Sorry Mac, node already exists" }
-
+  return {
+    body: {
+      message: `Sorry Mac, node already exists`,
+      newId: undefined,
+      success: false
+    },
+    contentType: "application/json"
+  }
 }
