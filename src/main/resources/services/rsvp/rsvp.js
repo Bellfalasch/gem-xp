@@ -24,29 +24,30 @@ const runAsAdmin = {
   },
   principals: ['role:system.admin']
 }
+let response = {
+  body: {
+    message: `Unknown error`,
+    success: false
+  },
+  contentType: "application/json"
+};
 
 exports.post = function (req) {
   /*
-  if (1 === 1)
-  {return {
-      body: {
-        message: `Test, we're in the POST`,
-        payload: req,
-        body: JSON.parse(req.body)
-      },
-      contentType: "application/json"
-    };
-  }*/
-  const body = req.body;
-  if (!body) {
     return {
       body: {
-        message: `Invalid body payload sent`,
-        newId: undefined,
-        success: false
+        message: `Test, we're in the POST`,
+        payload: req, // Use this to see entire request object
+        body: JSON.parse(req.body) // Use this so see the payload sent
       },
       contentType: "application/json"
     };
+  */
+  const body = req.body;
+  if (!body) {
+    response.body.message = `Invalid body payload sent`,
+    response.body.newId = undefined;
+    return response;
   }
   const bodyObject = JSON.parse(body);
   const eventId = bodyObject.eventId;
@@ -58,18 +59,9 @@ exports.post = function (req) {
   };
 
   // Checking if event exists
-  const eventExists = gemRepo.exists(`/${eventId}`);/*
-  if (eventExists) {
-    return {
-      body: {
-        message: `Event exists? ${eventExists}`
-      },
-      contentType: "application/json"
-    }
-  }*/
+  const eventExists = gemRepo.exists(`/${eventId}`);
 
   if (!eventExists) {
-    //log.info(`K, so we didn't find event, let's run a create()`)
     const result = contextLib.run(
       runAsAdmin,
       () => {
@@ -88,14 +80,14 @@ exports.post = function (req) {
   }
 
   // Check if user entry exists under this event (based on e-mail)
-  const userExists = gemRepo.exists(`/${eventId}/${user.email}`);
-  if (!userExists) {
+  const rsvpExists = gemRepo.exists(`/${eventId}/${user.email}`);
+  if (!rsvpExists) {
     const result = contextLib.run(
       runAsAdmin,
       () => {
         return gemRepo.create({
           _name: user.email,
-          _parentPath: eventId,
+          _parentPath: `/${eventId}`,
           name: user.name,
           email: user.email,
           rsvp: user.rsvp,
@@ -105,67 +97,42 @@ exports.post = function (req) {
       }
     );
 
-    return {
-      body: {
-        message: `RSVP registered! ${result._id}`,
-        newId: result._id,
-        success: true
-      },
-      contentType: "application/json"
-    }
+    response.body.message = `RSVP registered! Added inside Event`;
+    response.body.newId = result._id;
+    response.body.eventId = eventId;
+    response.body.success = true;
+    return response;
   } else {
-    return {
-      body: {
-        message: `Sorry Mac, your e-mail is already registered!`,
-        newId: undefined,
-        success: false
-      },
-      contentType: "application/json"
-    }
+    response.body.message = `Sorry Mac, your e-mail is already registered!`;
+    response.body.newId = undefined;
+    return response;
   }
 }
 
 exports.get = function (req) {
   const eventId = req.params.eventId || null;
   if (!eventId) {
-    return {
-      body: {
-        message: `Please send a eventId using GET to this endpoint`,
-        success: false
-      },
-      contentType: "application/json"
-    }
+    response.body.message = `Please send a eventId using GET to this endpoint`;
+    return response;
   }
 
   const eventExists = gemRepo.exists(`/${eventId}`);
   if (!eventExists) {
-    return {
-      body: {
-        message: `Event not found, assuming no one are attending yet.`,
-        participants: 0
-      },
-      contentType: "application/json"
-    }
+    response.body.message = `Event not found, assuming no one are attending yet.`;
+    response.body.participants = 0;
+    return response;
   } else {
     const result = gemRepo.query({
-        query: `eventId = '${eventId}'`
+      query: `eventId = '${eventId}'`
     });
     if (result) {
-      return {
-        body: {
-          message: `Found event and participants on it.`,
-          participants: result.total
-        },
-        contentType: "application/json"
-      }
+      response.body.message = `Found event and participants on it.`;
+      response.body.participants = result.total;
+      return response;
     } else {
-      return {
-        body: {
-          message: `No RSVPs for this event found, assuming no one are attending yet.`,
-          participants: 0
-        },
-        contentType: "application/json"
-      }
+      response.body.message = `No RSVPs for this event found, assuming no one are attending yet.`;
+      response.body.participants = 0;
+      return response;
     }
   }
 }
