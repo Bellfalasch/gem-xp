@@ -1,5 +1,7 @@
 const nodeLib = require('/lib/xp/node');
 // https://developer.enonic.com/docs/xp/stable/api/lib-node
+const contextLib = require('/lib/xp/context');
+// https://developer.enonic.com/docs/xp/stable/api/lib-context
 
 // Service documentation: https://developer.enonic.com/docs/xp/stable/runtime/engines/http-service
 // It responds here: http://localhost:8080/admin/site/preview/moviedb/draft/gem/test-event/_/service/com.gjensidige.internal.gem/rsvp
@@ -8,6 +10,15 @@ const gemRepo = nodeLib.connect({
   repoId: "com.gjensidige.internal.gem",
   branch: "master"
 });
+const runAsAdmin = {
+  //repository: "com.gjensidige.internal.gem",
+  //branch: "master",
+  user: {
+    login: 'su',
+    idProvider: 'system'
+  },
+  principals: ['role:system.admin']
+}
 
 exports.post = function (req) {
   const body = req.body;
@@ -33,24 +44,30 @@ exports.post = function (req) {
   // Checking if event exists
   const eventExists = gemRepo.exists(`/${eventId}`);
   if (!eventExists) {
-    var result = gemRepo.create({
-      _name: eventId,
-      displayName: `Event ID: ${eventId}`
-    });
+    const result = contextLib.run(
+      runAsAdmin,
+      gemRepo.create({
+        _name: eventId,
+        displayName: `Event ID: ${eventId}`
+      })
+    );
   }
 
   // Check if user entry exists under this event (based on e-mail)
   const userExists = gemRepo.exists(`/${eventId}/${user.email}`);
   if (!userExists) {
-    var result = gemRepo.create({
-      _name: user.email,
-      _parentPath: eventId,
-      name: user.name,
-      email: user.email,
-      rsvp: user.rsvp,
-      allergy: user.allergy,
-      eventId: eventId // redundant data, but when makign sure data ends up in the right event, it might be nice to store this double to make debugging easier
-    });
+    const result = contextLib.run(
+      runAsAdmin,
+      gemRepo.create({
+        _name: user.email,
+        _parentPath: eventId,
+        name: user.name,
+        email: user.email,
+        rsvp: user.rsvp,
+        allergy: user.allergy,
+        eventId: eventId // redundant data, but when makign sure data ends up in the right event, it might be nice to store this double to make debugging easier
+      })
+    );
 
     return {
       body: {
