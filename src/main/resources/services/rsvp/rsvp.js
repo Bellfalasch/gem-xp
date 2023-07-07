@@ -8,7 +8,12 @@ const contextLib = require('/lib/xp/context');
 
 const gemRepo = nodeLib.connect({
   repoId: "com.gjensidige.internal.gem",
-  branch: "master"
+  branch: "master",
+  user: {
+    login: 'su',
+    idProvider: 'system'
+  },
+  principals: ['role:system.admin']
 });
 const runAsAdmin = {
   //repository: "com.gjensidige.internal.gem",
@@ -21,6 +26,17 @@ const runAsAdmin = {
 }
 
 exports.post = function (req) {
+  /*
+  if (1 === 1)
+  {return {
+      body: {
+        message: `Test, we're in the POST`,
+        payload: req,
+        body: JSON.parse(req.body)
+      },
+      contentType: "application/json"
+    };
+  }*/
   const body = req.body;
   if (!body) {
     return {
@@ -42,15 +58,33 @@ exports.post = function (req) {
   };
 
   // Checking if event exists
-  const eventExists = gemRepo.exists(`/${eventId}`);
+  const eventExists = gemRepo.exists(`/${eventId}`);/*
+  if (eventExists) {
+    return {
+      body: {
+        message: `Event exists? ${eventExists}`
+      },
+      contentType: "application/json"
+    }
+  }*/
+
   if (!eventExists) {
+    //log.info(`K, so we didn't find event, let's run a create()`)
     const result = contextLib.run(
       runAsAdmin,
-      gemRepo.create({
-        _name: eventId,
-        displayName: `Event ID: ${eventId}`
-      })
-    );
+      () => {
+        return gemRepo.create({
+          _name: eventId,
+          displayName: `Event ID: ${eventId}`
+        })
+      }
+    );/*
+    return {
+      body: {
+        message: `Just created an event, all happy days`
+      },
+      contentType: "application/json"
+    }*/
   }
 
   // Check if user entry exists under this event (based on e-mail)
@@ -58,15 +92,17 @@ exports.post = function (req) {
   if (!userExists) {
     const result = contextLib.run(
       runAsAdmin,
-      gemRepo.create({
-        _name: user.email,
-        _parentPath: eventId,
-        name: user.name,
-        email: user.email,
-        rsvp: user.rsvp,
-        allergy: user.allergy,
-        eventId: eventId // redundant data, but when makign sure data ends up in the right event, it might be nice to store this double to make debugging easier
-      })
+      () => {
+        return gemRepo.create({
+          _name: user.email,
+          _parentPath: eventId,
+          name: user.name,
+          email: user.email,
+          rsvp: user.rsvp,
+          allergy: user.allergy,
+          eventId: eventId // redundant data, but when making sure data ends up in the right event, it might be nice to store this double to make debugging easier
+        })
+      }
     );
 
     return {
