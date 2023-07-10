@@ -36,7 +36,7 @@
       <label>Participant limit</label>
       <help-text>Skriv inn maks grense på antall deltakere til event</help-text>
     </input>
-    <input name="eventprice" type="Long">
+    <input name="eventPrice" type="Long">
       <label>Price for event participation</label>
       <help-text>Skriv in egenandel per deltaker</help-text>
     </input>
