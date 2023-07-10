@@ -36,6 +36,10 @@
       <label>Participant limit</label>
       <help-text>Skriv inn maks grense på antall deltakere til event</help-text>
     </input>
+    <input name="eventprice" type="Long">
+      <label>Price for event participation</label>
+      <help-text>Skriv in egenandel per deltaker</help-text>
+    </input>
     <input type="CheckBox" name="showCountdown">
       <label>Check the box for show the countdown</label>
     </input>
