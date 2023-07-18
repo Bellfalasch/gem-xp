@@ -12,54 +12,73 @@
       <label>Location</label>
       <occurrences minimum="1" maximum="1"/>
     </input>
-    <input name="startDateTime" type="DateTime">
-      <label>Event starts date and time</label>
-      <help-text>(current time as default value)</help-text>
-      <default>now</default>
+    <input type="ImageSelector" name="image">
+      <label>Image (used in EventList)</label>
+      <occurrences minimum="0" maximum="1"/>
     </input>
-    <input name="endDateTime" type="DateTime">
-      <label>Event end date and time</label>
-      <help-text>(current time as default value)</help-text>
-      <default>now</default>
-    </input>
-    <input name="openForRegistration" type="DateTime">
-      <label>Registration open from date and time</label>
-      <help-text>(current time as default value)</help-text>
-      <default>now</default>
-    </input>
-    <input name="closedForRegistration" type="DateTime">
-      <label>Registration closed from date and time</label>
-      <help-text>(current time as default value)</help-text>
-      <default>now</default>
-    </input>
-    <input name="attendees" type="Long">
-      <label>Participant limit</label>
-      <help-text>Skriv inn maks grense på antall deltakere til event</help-text>
-    </input>
-    <input name="eventPrice" type="Long">
-      <label>Price for event participation</label>
-      <help-text>Skriv in egenandel per deltaker</help-text>
-    </input>
-    <input type="CheckBox" name="showCountdown">
-      <label>Check the box for show the countdown</label>
-    </input>
-    <input type="CheckBox" name="externalUsers">
-      <label>Open for external users</label>
-    </input>
-    <input type="CheckBox" name="allergy">
-      <label>Allergy (participant checked for allergy?)</label>
-    </input>
-    <input type="RadioButton" name="theme">
-      <label>Select a theme</label>
-      <occurrences minimum="1" maximum="1"/>
-      <config>
-        <option value="default">Default</option>
-        <option value="christmas">Christmas</option>
-        <option value="newyear">New Year</option>
-        <option value="summer">Summer</option>
-        <option value="pride">Pride</option>
-      </config>
-      <default>default</default>
-    </input>
+    <field-set>
+      <label>Starting/stopping</label>
+      <items>
+        <input name="startDateTime" type="DateTime">
+          <label>Event starts date and time</label>
+          <help-text>(current time as default value)</help-text>
+          <default>now</default>
+        </input>
+        <input name="endDateTime" type="DateTime">
+          <label>Event end date and time</label>
+          <help-text>(current time as default value)</help-text>
+          <default>now</default>
+        </input>
+      </items>
+    </field-set>
+    <field-set>
+      <label>RSVP</label>
+      <items>
+        <input name="openForRegistration" type="DateTime">
+          <label>Registration open from date and time</label>
+          <help-text>(current time as default value)</help-text>
+          <default>now</default>
+        </input>
+        <input name="closedForRegistration" type="DateTime">
+          <label>Registration closed from date and time</label>
+          <help-text>(current time as default value)</help-text>
+          <default>now</default>
+        </input>
+      </items>
+    </field-set>
+    <field-set>
+      <label>Event settings</label>
+      <items>
+        <input name="attendees" type="Long">
+          <label>Participant limit?</label>
+          <help-text>Skriv inn maks grense på antall deltakere til event</help-text>
+        </input>
+        <input name="eventPrice" type="Long">
+          <label>Price for participation?</label>
+          <help-text>Skriv in egenandel per deltaker</help-text>
+        </input>
+        <input type="CheckBox" name="showCountdown">
+          <label>Show a countdown?</label>
+        </input>
+        <input type="CheckBox" name="externalUsers">
+          <label>Open for external users?</label>
+        </input>
+        <input type="CheckBox" name="allergy">
+          <label>Allergy (participant checked for allergy?)</label>
+        </input>
+        <input type="RadioButton" name="theme">
+          <label>Select a theme</label>
+          <occurrences minimum="1" maximum="1"/>
+          <config>
+            <option value="default">Default</option>
+            <option value="christmas">Christmas</option>
+            <option value="newyear">New Year</option>
+            <option value="summer">Summer</option>
+            <option value="pride">Pride</option>
+          </config>
+          <default>default</default>
+        </input>
+      </items>
+    </field-set>
   </form>
 </content-type>
