@@ -7,5 +7,15 @@
       <label>Image</label>
       <occurrences minimum="0" maximum="1"/>
     </input>
+    <input name="captionText" type="TextLine">
+      <label>Caption-text</label>
+      <help-text>Add caption here</help-text>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+    <input name="altText" type="TextLine">
+      <label>Alternativ-text</label>
+      <help-text>Add alternativ text here</help-text>
+      <occurrences minimum="1" maximum="1"/>
+    </input>
   </form>
 </part>
