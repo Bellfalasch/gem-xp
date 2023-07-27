@@ -2,5 +2,17 @@
 <part xmlns="urn:enonic:xp:model:1.0">
   <display-name>Weather Widget</display-name>
   <description>Display a weather widget</description>
-  <form/>
+  <form>
+    <input name="locationID" type="TextLine">
+      <label>locationID</label>
+      <help-text>
+      You can find the location id by following these steps:
+      - Navigate to Yr.no
+      - Search for the location you want
+      - Copy the location id from the url(see picture https://developer.yr.no/doc/assets/locationId.png)
+      - Once you have the location id you put id in the inputfield.
+      </help-text>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+  </form>
 </part>
